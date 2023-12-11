@@ -3,7 +3,7 @@ import { ElAvatar } from 'element-plus'
 const errorHandler = () => true
 </script>
 <template>
-  <nav class="bg-violet-600 h-16 w-full box-border px-12 flex justify-between items-center">
+  <nav class="bg-violet-600 h-16 w-full box-border px-6 md:px-12 flex justify-between items-center">
     <button class="text-white" @click="$emit('toggle', true)">
       <VIcon name="hi-menu-alt-3" scale="1.5" />
     </button>
