@@ -4,6 +4,6 @@ import TheWelcome from '../components/TheWelcome.vue'
 
 <template>
   <main>
-    <TheWelcome />
+    <p class="text-3xl font-bold">Welcome to yess hris</p>
   </main>
 </template>

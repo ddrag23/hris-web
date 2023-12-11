@@ -15,8 +15,10 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@vueuse/core": "^10.7.0",
     "axios": "^1.6.2",
     "element-plus": "^2.4.3",
+    "lodash": "^4.17.21",
     "oh-vue-icons": "^1.0.0-rc3",
     "pinia": "^2.1.7",
     "vue": "^3.3.10",
