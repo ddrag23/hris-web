@@ -8,8 +8,20 @@ const errorHandler = () => true
       <VIcon name="hi-menu-alt-3" scale="1.5" />
     </button>
     <h1 class="text-2xl text-white font-bold">YESS HRIS</h1>
-    <ElAvatar :size="40" src="#" @error="errorHandler">
-      <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" />
-    </ElAvatar>
+    <ElDropdown>
+      <span class="el-dropdown-link">
+        <ElAvatar :size="40" src="#" @error="errorHandler">
+          <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" />
+        </ElAvatar>
+      </span>
+      <template #dropdown>
+        <ElDropdownMenu>
+          <ElDropdownItem><VIcon name="fa-user" /><span class="ml-2">Profile</span></ElDropdownItem>
+          <ElDropdownItem
+            ><VIcon name="fa-sign-out-alt" /><span class="ml-2">Sign Out</span></ElDropdownItem
+          >
+        </ElDropdownMenu>
+      </template>
+    </ElDropdown>
   </nav>
 </template>

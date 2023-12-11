@@ -5,6 +5,7 @@ type DropdownState = {
 type RouteMenu = {
   title: string
   route: string
+  icon: string
 }
 type SideMenu = {
   children?: RouteMenu[]
@@ -20,29 +21,35 @@ function toggleMultiLevel(index: number) {
 const sideMenu = ref<SideMenu[]>([
   {
     title: 'Home',
-    route: 'home'
+    route: 'home',
+    icon: 'fa-home'
   },
   {
     title: 'About',
-    route: 'about'
+    route: 'about',
+    icon: 'fa-book'
   },
   {
     title: 'Multi Level',
     route: 'multi_level',
+    icon: 'fa-flag',
     children: [
       {
         title: 'User',
-        route: 'user'
+        route: 'user',
+        icon: 'fa-regular-circle'
       }
     ]
   },
   {
     title: 'Mext level',
     route: 'multi_level_2',
+    icon: 'fa-flag',
     children: [
       {
         title: 'Master',
-        route: 'master'
+        route: 'master',
+        icon: 'fa-regular-circle'
       }
     ]
   }
@@ -57,14 +64,18 @@ const sideMenu = ref<SideMenu[]>([
         @click="toggleMultiLevel(index)"
       >
         <div class="flex justify-between">
-          <div>{{ item.title }}</div>
+          <div>
+            <VIcon :name="item.icon" />
+            <span class="ml-2">{{ item.title }}</span>
+          </div>
           <VIcon name="hi-chevron-up" v-if="dropdownOpen[index]"></VIcon>
           <VIcon name="hi-chevron-down" v-else></VIcon>
         </div>
         <Transition>
           <ul class="w-full mt-3" v-if="dropdownOpen[index]">
-            <li class="py-2 px-5 rounded-md active w-full" v-for="child of item.children">
-              {{ child.title }}
+            <li class="py-2 px-3 rounded-md active w-full" v-for="child of item.children">
+              <VIcon :name="child.icon" scale="1" />
+              <span class="ml-2">{{ child.title }}</span>
             </li>
           </ul>
         </Transition>
@@ -75,7 +86,8 @@ const sideMenu = ref<SideMenu[]>([
         :class="{ active: $route.name == item.route }"
         @click="navigateTo(item.route)"
       >
-        {{ item.title }}
+        <VIcon :name="item.icon" />
+        <span class="ml-2">{{ item.title }}</span>
       </li>
     </template>
   </ul>
