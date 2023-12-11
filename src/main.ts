@@ -7,9 +7,9 @@ import 'element-plus/dist/index.css'
 import App from './App.vue'
 import router from './router'
 import { OhVueIcon, addIcons } from 'oh-vue-icons'
-import { FaFlag, RiZhihuFill } from 'oh-vue-icons/icons'
+import { FaFlag, RiZhihuFill, HiMenuAlt3, HiChevronDown, HiChevronUp } from 'oh-vue-icons/icons'
 
-addIcons(FaFlag, RiZhihuFill)
+addIcons(FaFlag, RiZhihuFill, HiMenuAlt3, HiChevronDown, HiChevronUp)
 const app = createApp(App)
 
 app.use(createPinia())
