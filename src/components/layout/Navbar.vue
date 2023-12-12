@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { ElAvatar } from 'element-plus'
 const errorHandler = () => true
+const router = useRouter()
+function logout() {
+  localStorage.removeItem('access_token')
+  router.push({ name: 'login' })
+}
 </script>
 <template>
   <nav class="bg-violet-600 h-16 w-full box-border px-6 md:px-12 flex justify-between items-center">
@@ -17,7 +22,7 @@ const errorHandler = () => true
       <template #dropdown>
         <ElDropdownMenu>
           <ElDropdownItem><VIcon name="fa-user" /><span class="ml-2">Profile</span></ElDropdownItem>
-          <ElDropdownItem
+          <ElDropdownItem @click="logout"
             ><VIcon name="fa-sign-out-alt" /><span class="ml-2">Sign Out</span></ElDropdownItem
           >
         </ElDropdownMenu>
