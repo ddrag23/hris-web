@@ -8,7 +8,9 @@ import {
   FaBook,
   FaRegularCircle,
   FaUser,
-  FaSignOutAlt
+  FaSignOutAlt,
+  FaTrash,
+  FaEdit
 } from 'oh-vue-icons/icons'
 export default [
   FaFlag,
@@ -20,5 +22,7 @@ export default [
   FaBook,
   FaRegularCircle,
   FaUser,
-  FaSignOutAlt
+  FaSignOutAlt,
+  FaTrash,
+  FaEdit
 ]

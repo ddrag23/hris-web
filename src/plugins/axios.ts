@@ -14,7 +14,6 @@ const axiosIns = axios.create({
 axiosIns.interceptors.request.use((config) => {
   // Retrieve token from localStorage
   const token = localStorage.getItem('access_token')
-
   // If token is found
   if (token) {
     // Get request headers and if headers is undefined assign blank object
@@ -22,7 +21,7 @@ axiosIns.interceptors.request.use((config) => {
 
     // Set authorization header
     // ℹ️ JSON.parse will convert token to string
-    config.headers.Authorization = token ? `Bearer ${JSON.parse(token)}` : ''
+    config.headers.Authorization = token ? `Bearer ${token}` : ''
   }
 
   // Return modified config
@@ -35,6 +34,7 @@ axiosIns.interceptors.response.use(
     return response
   },
   (error) => {
+    console.log(error)
     // Handle error
     if (error.response.status === 401) {
       console.log('masuk')

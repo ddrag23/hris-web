@@ -15,7 +15,7 @@ export const useAuthStore = defineStore('auth', () => {
       const response = await axios.post('/auth/login', credential)
       console.log(response.data)
       localStorage.setItem('user', JSON.stringify(response.data.user))
-      localStorage.setItem('token', response.data.access_token)
+      localStorage.setItem('access_token', response.data.access_token)
       isLogin.value = true
     } catch (error: any) {
       console.error(error)
