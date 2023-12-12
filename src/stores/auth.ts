@@ -12,10 +12,13 @@ export const useAuthStore = defineStore('auth', () => {
   })
   async function login(credential: AuthRequest) {
     try {
-      const response = await axios.post('/auth/login', credential)
-      console.log(response.data)
-      localStorage.setItem('user', JSON.stringify(response.data.user))
-      localStorage.setItem('access_token', response.data.access_token)
+      const {
+        data: {
+          data: { access_token, user }
+        }
+      } = await axios.post('/auth/login', credential)
+      localStorage.setItem('user', JSON.stringify(user))
+      localStorage.setItem('access_token', access_token)
       isLogin.value = true
     } catch (error: any) {
       console.error(error)

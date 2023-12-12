@@ -13,7 +13,9 @@ export const usePositionStore = defineStore('usePositionStore', () => {
   const items = ref<Item[]>([])
   async function load() {
     try {
-      const { data } = await axios.get(baseUrl.base)
+      const {
+        data: { data }
+      } = await axios.get(baseUrl.base)
       items.value = data
       console.log(items.value)
     } catch (error: any) {
@@ -24,11 +26,12 @@ export const usePositionStore = defineStore('usePositionStore', () => {
   async function store(form: UpdatePositionDto) {
     try {
       const { id, ...formData } = form
-      const { data } = await axios.post(baseUrl.base, formData)
-      console.log(data)
+      const {
+        data: { message }
+      } = await axios.post(baseUrl.base, formData)
       ElNotification({
         title: 'Success',
-        message: data,
+        message: message,
         type: 'success'
       })
       load()
@@ -38,11 +41,12 @@ export const usePositionStore = defineStore('usePositionStore', () => {
   }
   async function update(id: string | number | undefined, form: UpdatePositionDto) {
     try {
-      const { data } = await axios.patch(`${baseUrl.base}/${id}`, form)
-      console.log(data)
+      const {
+        data: { message }
+      } = await axios.patch(`${baseUrl.base}/${id}`, form)
       ElNotification({
         title: 'Success',
-        message: data,
+        message: message,
         type: 'success'
       })
       load()
