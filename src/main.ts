@@ -9,6 +9,8 @@ import router from './router'
 import { OhVueIcon, addIcons } from 'oh-vue-icons'
 import icons from '@/plugins/icon'
 import { resetStore } from './utils'
+import Vue3EasyDataTable from 'vue3-easy-data-table'
+import 'vue3-easy-data-table/dist/style.css'
 
 addIcons(...icons)
 const app = createApp(App)
@@ -18,5 +20,6 @@ pinia.use(resetStore)
 app.use(pinia)
 app.use(router)
 app.use(ElementPlus)
+app.component('EasyDataTable', Vue3EasyDataTable)
 app.component('VIcon', OhVueIcon)
 app.mount('#app')

@@ -30,25 +30,13 @@ const sideMenu = ref<SideMenu[]>([
     icon: 'fa-book'
   },
   {
-    title: 'Multi Level',
-    route: 'multi_level',
+    title: 'Master',
+    route: 'master',
     icon: 'fa-flag',
     children: [
       {
-        title: 'User',
-        route: 'user',
-        icon: 'fa-regular-circle'
-      }
-    ]
-  },
-  {
-    title: 'Mext level',
-    route: 'multi_level_2',
-    icon: 'fa-flag',
-    children: [
-      {
-        title: 'Master',
-        route: 'master',
+        title: 'Posisi',
+        route: 'posisi',
         icon: 'fa-regular-circle'
       }
     ]
@@ -73,7 +61,12 @@ const sideMenu = ref<SideMenu[]>([
         </div>
         <Transition>
           <ul class="w-full mt-3" v-if="dropdownOpen[index]">
-            <li class="py-2 px-3 rounded-md active w-full" v-for="child of item.children">
+            <li
+              class="py-2 px-3 rounded-md w-full"
+              :class="{ active: child.route == $route.name }"
+              v-for="child of item.children"
+              @click="navigateTo(child.route)"
+            >
               <VIcon :name="child.icon" scale="1" />
               <span class="ml-2">{{ child.title }}</span>
             </li>
