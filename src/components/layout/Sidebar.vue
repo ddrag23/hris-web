@@ -38,6 +38,16 @@ const sideMenu = ref<SideMenu[]>([
         title: 'Posisi',
         route: 'posisi',
         icon: 'fa-regular-circle'
+      },
+      {
+        title: 'Level',
+        route: 'level',
+        icon: 'fa-regular-circle'
+      },
+      {
+        title: 'Division',
+        route: 'division',
+        icon: 'fa-regular-circle'
       }
     ]
   }
