@@ -12,6 +12,7 @@ const rules = reactive<FormRules<UpdateProvinceDto>>({
 })
 function editDialog(item: UpdateProvinceDto) {
   form.name = item.name
+  form.code = item.code
   form.id = item.id
   dialogVisible.value = true
 }
