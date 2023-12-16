@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import { usePositionStore } from '@/stores/position'
-import type { UpdatePositionDto } from './dtos/position.dto'
 import type { FormInstance, FormRules } from 'element-plus'
-const state = usePositionStore()
+import type { UpdateProvinceDto } from './dtos/province.dto'
+import { useProvinceStore } from '@/stores/province'
+const state = useProvinceStore()
 const dialogVisible = ref<boolean>()
-const form = reactive<UpdatePositionDto>({ name: '', id: 0 })
+const form = reactive<UpdateProvinceDto>({ name: '', code: '', id: 0 })
 const formRef = ref<FormInstance>()
-const rules = reactive<FormRules<UpdatePositionDto>>({
-  name: [{ required: true, message: 'Tolong masukkan nama posisi', trigger: 'blur' }]
+const rules = reactive<FormRules<UpdateProvinceDto>>({
+  name: [{ required: true, message: 'Tolong masukkan nama provinsi', trigger: 'blur' }],
+  code: [{ required: true, message: 'Tolong masukkan kode provinsi', trigger: 'blur' }]
 })
-function editDialog(item: UpdatePositionDto) {
+function editDialog(item: UpdateProvinceDto) {
   form.name = item.name
   form.id = item.id
   dialogVisible.value = true
@@ -32,7 +33,7 @@ async function submit() {
   <ElCard class="box-card">
     <template #header>
       <div class="flex justify-between items-center">
-        <h5 class="text-xl font-semibold">Position</h5>
+        <h5 class="text-xl font-semibold">Province</h5>
         <ElButton type="primary" @click="dialogVisible = true">Tambah</ElButton>
       </div>
     </template>
@@ -58,9 +59,12 @@ async function submit() {
         </div>
       </template>
     </EasyDataTable>
-    <ElDialog v-model="dialogVisible" title="Form Posisi">
+    <ElDialog v-model="dialogVisible" title="Form Province">
       <ElForm :model="form" label-position="top" ref="formRef" :rules="rules">
-        <ElFormItem label="Nama Posisi" required prop="name">
+        <ElFormItem label="Kode" required prop="code">
+          <ElInput v-model="form.code" size="large" />
+        </ElFormItem>
+        <ElFormItem label="Nama Province" required prop="name">
           <ElInput v-model="form.name" size="large" />
         </ElFormItem>
       </ElForm>

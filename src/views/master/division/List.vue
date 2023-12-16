@@ -31,8 +31,8 @@ async function submit() {
 <template>
   <ElCard class="box-card">
     <template #header>
-      <div class="flex justify-between">
-        <span>Divisi</span>
+      <div class="flex justify-between items-center">
+        <h5 class="text-xl font-semibold">Divisi</h5>
         <ElButton type="primary" @click="dialogVisible = true">Tambah</ElButton>
       </div>
     </template>

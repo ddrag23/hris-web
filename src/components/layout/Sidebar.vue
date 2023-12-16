@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import menu from './menu'
 type DropdownState = {
   [key: number]: boolean
 }
@@ -18,40 +19,7 @@ const dropdownOpen = ref<DropdownState>([])
 function toggleMultiLevel(index: number) {
   dropdownOpen.value[index] = !dropdownOpen.value[index]
 }
-const sideMenu = ref<SideMenu[]>([
-  {
-    title: 'Home',
-    route: 'home',
-    icon: 'fa-home'
-  },
-  {
-    title: 'About',
-    route: 'about',
-    icon: 'fa-book'
-  },
-  {
-    title: 'Master',
-    route: 'master',
-    icon: 'fa-flag',
-    children: [
-      {
-        title: 'Posisi',
-        route: 'posisi',
-        icon: 'fa-regular-circle'
-      },
-      {
-        title: 'Level',
-        route: 'level',
-        icon: 'fa-regular-circle'
-      },
-      {
-        title: 'Division',
-        route: 'division',
-        icon: 'fa-regular-circle'
-      }
-    ]
-  }
-])
+const sideMenu = ref<SideMenu[]>([...menu])
 </script>
 <template>
   <ul class="space-y-2">

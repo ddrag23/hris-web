@@ -9,7 +9,7 @@ function navToggle(value: boolean) {
 <template>
   <div class="flex flex-col w-full">
     <Navbar @toggle="navToggle" />
-    <div class="mx-6 md:mx-14 my-8">
+    <div class="mx-6 md:mx-14 mt-28 mb-10">
       <slot />
     </div>
     <ElDrawer :with-header="false" direction="ltr" v-model="drawer" :size="300" show-close>
