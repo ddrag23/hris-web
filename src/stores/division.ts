@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import type { Header, Item } from 'vue3-easy-data-table'
 import { ElNotification } from 'element-plus'
-import baseUrl from '@/urls/division'
+import baseUrl from '@/urls/division.url'
 import type { UpdateDivisionDto } from '@/views/master/division/dtos/division.dto'
 export const useDivisionStore = defineStore('useDivisionStore', () => {
   const headers: Header[] = [

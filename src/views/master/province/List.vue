@@ -34,7 +34,7 @@ async function submit() {
   <ElCard class="box-card">
     <template #header>
       <div class="flex justify-between items-center">
-        <h5 class="text-xl font-semibold">Province</h5>
+        <h5 class="text-xl font-semibold">Provinsi</h5>
         <ElButton type="primary" @click="dialogVisible = true">Tambah</ElButton>
       </div>
     </template>

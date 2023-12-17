@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import type { Header, Item } from 'vue3-easy-data-table'
 import { ElNotification } from 'element-plus'
-import baseUrl from '@/urls/level'
+import baseUrl from '@/urls/level.url'
 import type { UpdateLevelDto } from '@/views/master/level/dtos/level.dto'
 export const useLevelStore = defineStore('useLevelStore', () => {
   const headers: Header[] = [

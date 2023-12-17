@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import type { Header, Item } from 'vue3-easy-data-table'
 import { ElNotification } from 'element-plus'
-import baseUrl from '@/urls/province'
+import baseUrl from '@/urls/province.url'
 import type { UpdateProvinceDto } from '@/views/master/province/dtos/province.dto'
 export const useProvinceStore = defineStore('useProvinceStore', () => {
   const headers: Header[] = [

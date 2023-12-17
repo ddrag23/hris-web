@@ -4,7 +4,7 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import type { Header, Item } from 'vue3-easy-data-table'
 import { ElNotification } from 'element-plus'
-import baseUrl from '@/urls/position'
+import baseUrl from '@/urls/position.url'
 export const usePositionStore = defineStore('usePositionStore', () => {
   const headers: Header[] = [
     { text: 'NAMA POSISI', value: 'name' },
@@ -22,7 +22,6 @@ export const usePositionStore = defineStore('usePositionStore', () => {
       console.error(error)
     }
   }
-
   async function store(form: UpdatePositionDto) {
     try {
       const { id, ...formData } = form

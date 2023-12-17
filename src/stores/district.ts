@@ -3,14 +3,13 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import type { Header, Item, ServerOptions } from 'vue3-easy-data-table'
 import { ElNotification } from 'element-plus'
-import baseUrl from '@/urls/city.url'
-import type { UpdateCityDto } from '@/views/master/city/dtos/city.dto'
-import type { BaseCity } from '@/views/master/city/entities/city.entity'
-export const useCityStore = defineStore('useCityStore', () => {
+import baseUrl from '@/urls/district.url'
+import type { UpdateDistrictDto } from '@/views/master/district/dtos/district.dto'
+export const useDistrictStore = defineStore('useDistrictStore', () => {
   const headers: Header[] = [
     { text: 'KODE', value: 'code' },
-    { text: 'NAMA KOTA / KABUPATEN', value: 'name' },
-    { text: 'Provinsi', value: 'province.name' },
+    { text: 'KECAMATAN', value: 'name' },
+    { text: 'KABUPATEN / KOTA', value: 'city.name' },
     { text: 'AKSI', value: 'id' }
   ]
   const items = ref<Item[]>([])
@@ -54,19 +53,8 @@ export const useCityStore = defineStore('useCityStore', () => {
       console.error(error)
     }
   }
-  async function loadAll(filter?: Object): Promise<BaseCity[] | undefined> {
-    try {
-      const {
-        data: { data }
-      } = await axios.get(baseUrl.all, {
-        params: { ...(filter && { condition: JSON.stringify(filter) }) }
-      })
-      return data
-    } catch (error: any) {
-      console.error(error)
-    }
-  }
-  async function store(form: UpdateCityDto) {
+
+  async function store(form: UpdateDistrictDto) {
     try {
       const { id, ...formData } = form
       const {
@@ -83,7 +71,7 @@ export const useCityStore = defineStore('useCityStore', () => {
       console.error(error)
     }
   }
-  async function update(id: string | number | undefined, form: UpdateCityDto) {
+  async function update(id: string | number | undefined, form: UpdateDistrictDto) {
     try {
       const {
         data: { message }
@@ -142,7 +130,6 @@ export const useCityStore = defineStore('useCityStore', () => {
     reRender,
     serverOptions,
     loading,
-    search,
-    loadAll
+    search
   }
 })

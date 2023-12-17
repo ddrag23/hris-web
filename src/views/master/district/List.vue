@@ -1,24 +1,30 @@
 <script setup lang="ts">
 import type { FormInstance, FormRules } from 'element-plus'
-import type { UpdateCityDto } from './dtos/city.dto'
+import { useDistrictStore } from '@/stores/district'
+import type { UpdateDistrictDto } from './dtos/district.dto'
+import type { BaseCity } from '@/views/master/city/entities/city.entity'
 import { useCityStore } from '@/stores/city'
-const state = useCityStore()
+const state = useDistrictStore()
 const dialogVisible = ref<boolean>()
-const form = reactive<UpdateCityDto>({ name: '', code: '', id: 0, province_id: 0 })
+const form = reactive<UpdateDistrictDto>({ name: '', code: '', id: 0, city_id: '' })
 const formRef = ref<FormInstance>()
-const rules = reactive<FormRules<UpdateCityDto>>({
+const rules = reactive<FormRules<UpdateDistrictDto>>({
   name: [{ required: true, message: 'Tolong masukkan nama provinsi', trigger: 'blur' }],
   code: [{ required: true, message: 'Tolong masukkan kode provinsi', trigger: 'blur' }],
-  province_id: [{ required: true, message: 'Tolong pilih provinsi', trigger: 'blur' }]
+  city_id: [{ required: true, message: 'Tolong pilih provinsi', trigger: 'blur' }]
 })
-function editDialog(item: UpdateCityDto) {
+function editDialog(item: UpdateDistrictDto) {
   form.name = item.name
   form.code = item.code
   form.id = item.id
   dialogVisible.value = true
 }
 const loading = ref<boolean>()
-onMounted(async () => await state.load())
+const loadingProvince = ref<boolean>()
+const stateCity = useCityStore()
+onMounted(async () => {
+  await state.load()
+})
 async function submit() {
   if (!formRef.value) return
   await formRef.value.validate(async (valid: boolean) => {
@@ -30,12 +36,21 @@ async function submit() {
     }
   })
 }
+const options = ref<BaseCity[]>([])
+async function remoteMethod(query: string) {
+  if (query) {
+    loadingProvince.value = true
+    const data = await stateCity.loadAll({ name: { contains: query, mode: 'insensitive' } })
+    options.value = data as BaseCity[]
+    loadingProvince.value = false
+  }
+}
 </script>
 <template>
   <ElCard class="box-card">
     <template #header>
       <div class="flex justify-between items-center">
-        <h5 class="text-xl font-semibold">City</h5>
+        <h5 class="text-xl font-semibold">Kecamatan</h5>
         <ElButton type="primary" @click="dialogVisible = true">Tambah</ElButton>
       </div>
     </template>
@@ -60,10 +75,10 @@ async function submit() {
           <ElPopconfirm
             width="220"
             confirm-button-text="OK"
-            cancel-button-text="No, Thanks"
+            cancel-button-text="Tidak, Terima kasih"
             icon="InfoFilled"
             icon-color="#626AEF"
-            title="Are you sure to delete this?"
+            title="Apakah kamu yakin menghapus data ini?"
             @confirm="state.destroy(item.id)"
           >
             <template #reference>
@@ -73,13 +88,27 @@ async function submit() {
         </div>
       </template>
     </EasyDataTable>
-    <ElDialog v-model="dialogVisible" title="Form Province">
+    <ElDialog v-model="dialogVisible" title="Form Kecamatan">
       <ElForm :model="form" label-position="top" ref="formRef" :rules="rules">
-        <ElFormItem label="Kode" required prop="code">
-          <ElInput v-model="form.code" size="large" />
+        <ElFormItem label="Pilih Kabupaten" required prop="city_id">
+          <ElSelect
+            class="w-full"
+            v-model="form.city_id"
+            filterable
+            remote
+            reserve-keyword
+            placeholder="Masukkan nama kota/kabupaten"
+            :remote-method="remoteMethod"
+            :loading="loadingProvince"
+          >
+            <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id" />
+          </ElSelect>
         </ElFormItem>
-        <ElFormItem label="Nama Province" required prop="name">
-          <ElInput v-model="form.name" size="large" />
+        <ElFormItem label="Kode" required prop="code">
+          <ElInput v-model="form.code" />
+        </ElFormItem>
+        <ElFormItem label="Nama Kecamatan" required prop="name">
+          <ElInput v-model="form.name" />
         </ElFormItem>
       </ElForm>
       <template #footer>
@@ -91,4 +120,3 @@ async function submit() {
     </ElDialog>
   </ElCard>
 </template>
-./dtos/city.dto

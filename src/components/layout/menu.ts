@@ -38,6 +38,11 @@ export default [
         title: 'City',
         route: 'city',
         icon: 'fa-regular-circle'
+      },
+      {
+        title: 'Kecamatan',
+        route: 'district',
+        icon: 'fa-regular-circle'
       }
     ]
   }
