@@ -11,13 +11,18 @@ export const useProvinceStore = defineStore('useProvinceStore', () => {
     { text: 'AKSI', value: 'id' }
   ]
   const items = ref<Item[]>([])
-  async function load() {
+  async function load(filter?: Object, set: boolean = false): Promise<void | any> {
     try {
       const {
         data: { data }
-      } = await axios.get(baseUrl.base)
-      items.value = data
-      console.log(items.value)
+      } = await axios.get(baseUrl.base, {
+        params: { ...(filter && { condition: JSON.stringify(filter) }) }
+      })
+      if (!set) {
+        items.value = data
+      } else {
+        return data
+      }
     } catch (error: any) {
       console.error(error)
     }

@@ -60,6 +60,7 @@ export const useCityStore = defineStore('useCityStore', () => {
       const {
         data: { message }
       } = await axios.post(baseUrl.base, formData)
+      console.log(message)
       ElNotification({
         title: 'Success',
         message: message,
@@ -88,11 +89,12 @@ export const useCityStore = defineStore('useCityStore', () => {
 
   async function destroy(id: number) {
     try {
-      const { data } = await axios.delete(`${baseUrl.base}/${id}`)
-      console.log(data)
+      const {
+        data: { message }
+      } = await axios.delete(`${baseUrl.base}/${id}`)
       ElNotification({
         title: 'Success',
-        message: data,
+        message: message,
         type: 'success'
       })
       load()
