@@ -1,4 +1,5 @@
 const base = '/master/city'
 export default {
-  base
+  base,
+  all: base + '/all'
 }
