@@ -36,7 +36,13 @@ async function login() {
       <p class="text-lg font-bold mt-3">Login to your account</p>
       <p class="text-sm font-semibold mb-5 text-slate-400">Welcome back, Select method to login</p>
       <ElDivider />
-      <ElForm :model="form" label-position="top" ref="ruleFormRef" :rules="rules">
+      <ElForm
+        :model="form"
+        label-position="top"
+        ref="ruleFormRef"
+        :rules="rules"
+        @submit.prevent="login"
+      >
         <ElFormItem label="Email" required prop="email">
           <ElInput v-model="form.email" size="large" />
         </ElFormItem>
@@ -44,7 +50,7 @@ async function login() {
           <ElInput v-model="form.password" type="password" show-password size="large" />
         </ElFormItem>
         <ElFormItem>
-          <ElButton type="primary" class="w-full" size="large" @click="login" :loading="loading"
+          <ElButton type="primary" class="w-full" size="large" :loading="loading" @click="login"
             >Login</ElButton
           >
         </ElFormItem>

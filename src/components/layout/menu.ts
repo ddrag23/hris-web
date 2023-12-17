@@ -33,6 +33,11 @@ export default [
         title: 'Province',
         route: 'province',
         icon: 'fa-regular-circle'
+      },
+      {
+        title: 'City',
+        route: 'city',
+        icon: 'fa-regular-circle'
       }
     ]
   }

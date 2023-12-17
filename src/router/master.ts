@@ -24,5 +24,11 @@ export default [
     name: 'province',
     component: () => import('@/views/master/province/List.vue'),
     meta: { layout: AdminLayout, auth: true }
+  },
+  {
+    path: '/master/area/city',
+    name: 'city',
+    component: () => import('@/views/master/city/List.vue'),
+    meta: { layout: AdminLayout, auth: true }
   }
 ]
