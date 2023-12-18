@@ -6,5 +6,5 @@
     @apply py-2 px-5 cursor-pointer rounded-md;
 }
 .active{
-    @apply bg-violet-600 text-white;
+    @apply bg-[#409EFF] text-white;
 }

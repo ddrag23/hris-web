@@ -1,28 +1,28 @@
 <script setup lang="ts">
 import type { FormInstance, FormRules } from 'element-plus'
-import type { UpdateCityDto } from './dtos/city.dto'
-import type { Province } from '@/views/master/province/entities/province.entity'
-import { useProvinceStore } from '@/stores/province'
 import { useCityStore } from '@/stores/city'
-const state = useCityStore()
+import type { UpdateAllowanceDto } from './dtos/allowance.dto'
+import { useAllowanceStore } from '@/stores/allowance'
+import { usePositionStore } from '@/stores/position'
+import type { Position } from '@/views/master/position/entities/position.entity'
+const state = useAllowanceStore()
 const dialogVisible = ref<boolean>()
-const form = reactive<UpdateCityDto>({ name: '', code: '', id: 0, province_id: '' })
+const form = reactive<UpdateAllowanceDto>({ name: '', price: 0, id: 0, position_id: '' })
 const formRef = ref<FormInstance>()
-const rules = reactive<FormRules<UpdateCityDto>>({
-  name: [{ required: true, message: 'Tolong masukkan nama provinsi', trigger: 'blur' }],
-  code: [{ required: true, message: 'Tolong masukkan kode provinsi', trigger: 'blur' }],
-  province_id: [{ required: true, message: 'Tolong pilih provinsi', trigger: 'blur' }]
+const rules = reactive<FormRules<UpdateAllowanceDto>>({
+  name: [{ required: true, message: 'Tolong masukkan tunjangan', trigger: 'blur' }],
+  price: [{ required: true, message: 'Tolong masukkan nominal', trigger: 'blur' }],
+  position_id: [{ required: true, message: 'Tolong pilih posisi', trigger: 'blur' }]
 })
-function editDialog(item: UpdateCityDto) {
+function editDialog(item: UpdateAllowanceDto) {
   form.name = item.name
-  form.code = item.code
-  form.province_id = item.province_id
+  form.price = item.price
   form.id = item.id
   dialogVisible.value = true
 }
 const loading = ref<boolean>()
-const loadingProvince = ref<boolean>()
-const stateProvince = useProvinceStore()
+const loadingPosition = ref<boolean>()
+const statePosition = usePositionStore()
 onMounted(async () => {
   await state.load()
 })
@@ -37,15 +37,13 @@ async function submit() {
     }
   })
 }
-const options = ref<Province[]>([])
+const options = ref<Position[]>([])
 async function remoteMethod(query: string) {
   if (query) {
-    loadingProvince.value = true
-    options.value = await stateProvince.load(
-      { name: { contains: query, mode: 'insensitive' } },
-      true
-    )
-    loadingProvince.value = false
+    loadingPosition.value = true
+    const data = await statePosition.load()
+    options.value = data as Position[]
+    loadingPosition.value = false
   }
 }
 </script>
@@ -53,7 +51,7 @@ async function remoteMethod(query: string) {
   <ElCard class="box-card">
     <template #header>
       <div class="flex justify-between items-center">
-        <h5 class="text-xl font-semibold">Kota/Kabupaten</h5>
+        <h5 class="text-xl font-semibold">Tunjangan</h5>
         <ElButton type="primary" @click="dialogVisible = true">Tambah</ElButton>
       </div>
     </template>
@@ -79,10 +77,10 @@ async function remoteMethod(query: string) {
           <ElPopconfirm
             width="220"
             confirm-button-text="OK"
-            cancel-button-text="No, Thanks"
+            cancel-button-text="Tidak, Terima kasih"
             icon="InfoFilled"
             icon-color="#626AEF"
-            title="Are you sure to delete this?"
+            title="Apakah kamu yakin menghapus data ini?"
             @confirm="state.destroy(item.id)"
           >
             <template #reference>
@@ -92,27 +90,27 @@ async function remoteMethod(query: string) {
         </div>
       </template>
     </EasyDataTable>
-    <ElDialog v-model="dialogVisible" title="Form Kota/Kabupaten">
+    <ElDialog v-model="dialogVisible" title="Form Tunjangan">
       <ElForm :model="form" label-position="top" ref="formRef" :rules="rules">
-        <ElFormItem label="Pilih Province" required prop="province_id">
+        <ElFormItem label="Pilih Kabupaten" required prop="position_id">
           <ElSelect
             class="w-full"
-            v-model="form.province_id"
+            v-model="form.position_id"
             filterable
             remote
             reserve-keyword
-            placeholder="Please enter a keyword"
+            placeholder="Masukkan nama posisi"
             :remote-method="remoteMethod"
-            :loading="loadingProvince"
+            :loading="loadingPosition"
           >
             <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id" />
           </ElSelect>
         </ElFormItem>
-        <ElFormItem label="Kode" required prop="code">
-          <ElInput v-model="form.code" />
-        </ElFormItem>
-        <ElFormItem label="Nama Kota / Kabupaten" required prop="name">
+        <ElFormItem label="Tunjangan" required prop="name">
           <ElInput v-model="form.name" />
+        </ElFormItem>
+        <ElFormItem label="Nominal" required prop="price">
+          <ElInput v-model="form.price" />
         </ElFormItem>
       </ElForm>
       <template #footer>
@@ -124,3 +122,4 @@ async function remoteMethod(query: string) {
     </ElDialog>
   </ElCard>
 </template>
+./dtos/allowance.dto

@@ -11,11 +11,14 @@ export const usePositionStore = defineStore('usePositionStore', () => {
     { text: 'AKSI', value: 'id' }
   ]
   const items = ref<Item[]>([])
-  async function load() {
+  async function load(filter?: Object, set: boolean = false) {
     try {
       const {
         data: { data }
       } = await axios.get(baseUrl.base)
+      if (set) {
+        return data
+      }
       items.value = data
       console.log(items.value)
     } catch (error: any) {

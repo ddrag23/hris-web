@@ -16,6 +16,7 @@ const rules = reactive<FormRules<UpdateDistrictDto>>({
 function editDialog(item: UpdateDistrictDto) {
   form.name = item.name
   form.code = item.code
+  form.city_id = item.city_id
   form.id = item.id
   dialogVisible.value = true
 }
@@ -66,6 +67,7 @@ async function remoteMethod(query: string) {
       :server-items-length="state.totalItem"
       buttons-pagination
       :key="state.reRender"
+      theme-color="#409EFF"
     >
       <template #item-id="item">
         <div class="flex">

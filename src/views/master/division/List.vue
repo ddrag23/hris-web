@@ -36,7 +36,7 @@ async function submit() {
         <ElButton type="primary" @click="dialogVisible = true">Tambah</ElButton>
       </div>
     </template>
-    <EasyDataTable :headers="state.headers" :items="state.items">
+    <EasyDataTable :headers="state.headers" :items="state.items" theme-color="#409EFF">
       <template #item-id="item">
         <div class="flex">
           <ElButton type="primary" size="small" text circle @click="editDialog(item)"
